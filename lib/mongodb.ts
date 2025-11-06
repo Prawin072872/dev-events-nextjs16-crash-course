@@ -46,6 +46,9 @@ async function connectDB(): Promise<typeof mongoose> {
 
   // If no connection promise exists, create a new one
   if (!cached.promise) {
+      if(!MONGODB_URI){
+          throw new Error('Please Define the MONGODB_URI environment variable inside .env.local');
+      }
     const opts = {
       bufferCommands: false, // Disable mongoose buffering
     };
