@@ -30,6 +30,7 @@ const EventSchema = new Schema<IEvent>(
     slug: {
       type: String,
       unique: true,
+      index: true,
       lowercase: true,
       trim: true,
     },
@@ -144,9 +145,6 @@ EventSchema.pre("save", function (next) {
 
   next();
 });
-
-// Index for faster slug-based queries
-EventSchema.index({ slug: 1 });
 
 const Event: Model<IEvent> =
   models.Event || model<IEvent>("Event", EventSchema);

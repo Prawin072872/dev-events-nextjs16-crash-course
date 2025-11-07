@@ -38,13 +38,11 @@ const EventTags = ({tags} :  {tags : string[]}) => (
 )
 
 const EventDetailsPage = async({params} : {params : {slug : string}}) => {
-    'use cache';
-    cacheLife("hours");
     const {slug} = await params;
     let event;
     try{
         const request = await fetch(`${BASE_URL}/api/events/${slug}`,{
-            next : {revalidate : 60}
+            cache: 'force-cache'
         });
 
         if(!request.ok){
